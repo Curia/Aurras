@@ -9,7 +9,7 @@ const GlobalHeader: React.FC<{}> = () => {
   return (
     <header className="flex justify-between items-center p-3">
       <span className="font-sans font-bold text-xl tracking-wide">Aurras</span>
-      <Link href="https://github.com/Curia/aurras" passHref={true}>
+      <Link href="https://github.com/Curia/aurras" forwardRef={true}>
         <VscGithubInverted className="text-xl" />
       </Link>
     </header>
