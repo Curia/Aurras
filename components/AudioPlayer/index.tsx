@@ -1,9 +1,7 @@
 // Imports
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 
 // Icons
-import { VscPlay, VscDebugPause } from "react-icons/vsc";
 import {
   BsFillPlayFill,
   BsPauseFill,
@@ -28,7 +26,10 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   volume,
 }) => {
   const [playState, setPlayState] = useState(true);
+  const [mutedState, setmutedState] = useState(false);
+
   const audioEl = React.createRef<HTMLAudioElement>();
+  const volumeEl = React.createRef<HTMLInputElement>();
 
   const handlePlay = (e) => {
     e.preventDefault();
@@ -36,19 +37,30 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     setPlayState(!playState);
   };
 
+  const handleMute = (e) => {
+    e.preventDefault();
+    audioEl.current.muted = !mutedState;
+    setmutedState(!mutedState);
+  };
+
+  const handleVolume = (e) => {
+    audioEl.current.volume = e.target.value / 100;
+  };
+
   useEffect(() => {
     // Set player volume
     if (audioEl.current) {
       volume = volume ? volume : 0.1;
+      volumeEl.current.value = (volume * 100).toString();
       volume !== audioEl.current.volume
         ? (audioEl.current.volume = volume)
         : null;
     }
-  });
+  }, []);
 
   return (
     <>
-      <audio controls ref={audioEl}>
+      <audio loop={true} ref={audioEl} className="hidden">
         {srcMpeg ? <source src={srcMpeg} type="audio/mpeg" /> : null}
         {srcOgg ? <source src={srcOgg} type="audio/ogg" /> : null}
         {srcWav ? <source src={srcWav} type="audio/wav" /> : null}
@@ -56,9 +68,23 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           Your browser does not support the <code>audio</code> element.
         </p>
       </audio>
-      <button onClick={(e) => handlePlay(e)}>
+      <button
+        onClick={(e: React.MouseEvent<HTMLInputElement>) => handlePlay(e)}
+      >
         {playState ? <BsFillPlayFill /> : <BsPauseFill />}
       </button>
+      <button
+        onClick={(e: React.MouseEvent<HTMLInputElement>) => handleMute(e)}
+      >
+        {mutedState ? <BsFillVolumeMuteFill /> : <BsFillVolumeUpFill />}
+      </button>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        ref={volumeEl}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleVolume(e)}
+      />
     </>
   );
 };

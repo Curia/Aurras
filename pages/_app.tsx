@@ -3,6 +3,7 @@ import Head from "next/head";
 
 // Styles
 import "../styles/tailwind.css";
+import "@components/AudioPlayer/style.css";
 
 // Components
 import GlobalHeader from "@components/GlobalHeader";

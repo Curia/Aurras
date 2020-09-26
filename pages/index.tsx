@@ -10,7 +10,7 @@ export default function Home({}:{}) {
     <div className="hero">
       <h1 className="hero__prompt text-6xl font-bold text-center"> Sound relaxation </h1>
     </div>
-    <AudioPlayer srcMpeg="/audio.mp3" title="Sound 1" volume={.01}/>
+    <AudioPlayer srcMpeg="/audio.mp3" title="Sound 1" volume={.2}/>
     </>
   )
 }
