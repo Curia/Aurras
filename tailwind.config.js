@@ -5,7 +5,9 @@ module.exports = {
   },
   purge: [],
   theme: {
-    extend: {},
+    fontFamily: {
+      'sans': ['Arimo', 'sans-serif'],
+    },
     colors: {
       black: '#000',
       white: '#fff',
