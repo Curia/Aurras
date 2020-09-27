@@ -13,6 +13,7 @@ module.exports = {
       white: '#fff',
       grey: '#d5d3cd',
       heath: '#fffbf4',
+      spring: '#f1ece5',
     }
   },
   variants: {},

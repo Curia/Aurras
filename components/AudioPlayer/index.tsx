@@ -18,7 +18,6 @@ interface AudioPlayerProps {
   loop?: boolean;
   volume?: number;
   muted?: boolean;
-  controls: boolean;
   Icon: IconType;
 }
 
@@ -55,29 +54,34 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   }, []);
 
   return (
-    <div className="w-1/2 flex flex-wrap">
-      <audio loop={true} ref={audioEl} className="w-full hidden">
-        {srcMpeg ? <source src={srcMpeg} type="audio/mpeg" /> : null}
-        {srcOgg ? <source src={srcOgg} type="audio/ogg" /> : null}
-        {srcWav ? <source src={srcWav} type="audio/wav" /> : null}
-        <p>
-          Your browser does not support the <code>audio</code> element.
-        </p>
-      </audio>
-      <button className="w-full p-3 flex justify-center" onClick={(e) => handlePlay(e)}>
-        <Icon
-          className={`text-6xl ${playState ? "text-grey" : "text-black"}`}
-        />
-      </button>
-      <div className="w-full p-3">
-        <input
-          disabled={playState}
-          type="range"
-          min="0"
-          max="100"
-          ref={volumeEl}
-          onChange={(e) => handleVolume(e)}
-        />
+    <div className="w-1/2 md:w-1/3 lg:w-1/4 flex flex-wrap justify-center px-2">
+      <div className={`rounded ${playState ? null : "bg-spring"}`}>
+        <audio loop={true} ref={audioEl} className="w-full hidden">
+          {srcMpeg ? <source src={srcMpeg} type="audio/mpeg" /> : null}
+          {srcOgg ? <source src={srcOgg} type="audio/ogg" /> : null}
+          {srcWav ? <source src={srcWav} type="audio/wav" /> : null}
+          <p>
+            Your browser does not support the <code>audio</code> element.
+          </p>
+        </audio>
+        <button
+          className="w-full p-3 flex justify-center focus:outline-none"
+          onClick={(e) => handlePlay(e)}
+        >
+          <Icon
+            className={`text-6xl ${playState ? "text-grey" : "text-black"}`}
+          />
+        </button>
+        <div className={`w-full p-3 ${playState ? 'cursor-not-allowed' : null}`}>
+          <input
+            disabled={playState}
+            type="range"
+            min="0"
+            max="100"
+            ref={volumeEl}
+            onChange={(e) => handleVolume(e)}
+          />
+        </div>
       </div>
     </div>
   );
