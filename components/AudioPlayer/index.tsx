@@ -8,6 +8,7 @@ import {
   BsFillVolumeMuteFill,
   BsFillVolumeUpFill,
 } from "react-icons/bs";
+import { IconType } from "react-icons/lib";
 
 interface AudioPlayerProps {
   title: string;
@@ -17,6 +18,8 @@ interface AudioPlayerProps {
   loop?: boolean;
   volume?: number;
   muted?: boolean;
+  controls: boolean;
+  Icon: IconType;
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({
@@ -24,27 +27,20 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   srcOgg,
   srcWav,
   volume,
+  Icon,
 }) => {
   const [playState, setPlayState] = useState(true);
-  const [mutedState, setmutedState] = useState(false);
-
   const audioEl = React.createRef<HTMLAudioElement>();
   const volumeEl = React.createRef<HTMLInputElement>();
 
-  const handlePlay = (e) => {
+  const handlePlay = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     playState ? audioEl.current.play() : audioEl.current.pause();
     setPlayState(!playState);
   };
 
-  const handleMute = (e) => {
-    e.preventDefault();
-    audioEl.current.muted = !mutedState;
-    setmutedState(!mutedState);
-  };
-
-  const handleVolume = (e) => {
-    audioEl.current.volume = e.target.value / 100;
+  const handleVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
+    audioEl.current.volume = parseInt(e.target.value) / 100;
   };
 
   useEffect(() => {
@@ -59,8 +55,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   }, []);
 
   return (
-    <>
-      <audio loop={true} ref={audioEl} className="hidden">
+    <div className="w-1/2 flex flex-wrap">
+      <audio loop={true} ref={audioEl} className="w-full hidden">
         {srcMpeg ? <source src={srcMpeg} type="audio/mpeg" /> : null}
         {srcOgg ? <source src={srcOgg} type="audio/ogg" /> : null}
         {srcWav ? <source src={srcWav} type="audio/wav" /> : null}
@@ -68,24 +64,22 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           Your browser does not support the <code>audio</code> element.
         </p>
       </audio>
-      <button
-        onClick={(e: React.MouseEvent<HTMLInputElement>) => handlePlay(e)}
-      >
-        {playState ? <BsFillPlayFill /> : <BsPauseFill />}
+      <button className="w-full p-3 flex justify-center" onClick={(e) => handlePlay(e)}>
+        <Icon
+          className={`text-6xl ${playState ? "text-grey" : "text-black"}`}
+        />
       </button>
-      <button
-        onClick={(e: React.MouseEvent<HTMLInputElement>) => handleMute(e)}
-      >
-        {mutedState ? <BsFillVolumeMuteFill /> : <BsFillVolumeUpFill />}
-      </button>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        ref={volumeEl}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleVolume(e)}
-      />
-    </>
+      <div className="w-full p-3">
+        <input
+          disabled={playState}
+          type="range"
+          min="0"
+          max="100"
+          ref={volumeEl}
+          onChange={(e) => handleVolume(e)}
+        />
+      </div>
+    </div>
   );
 };
 
