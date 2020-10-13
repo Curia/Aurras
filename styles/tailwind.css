@@ -5,6 +5,7 @@
 @tailwind  utilities;
 
 body {
-    @apply subpixel-antialiased;
-    background-color: theme('colors.heath');
+    @apply tracking-wide;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }

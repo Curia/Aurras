@@ -1,48 +1,49 @@
-import Head from "next/head";
 import { GetStaticProps } from "next";
 
 // Components
+import GlobalHero from "@components/GlobalHero";
 import AudioPlayer from "@components/AudioPlayer";
 
 // Icons
 import { WiThunderstorm, WiRain } from "react-icons/wi";
-import {BiWater} from "react-icons/bi";
-import {FaLeaf} from "react-icons/fa";
+import { BiWater } from "react-icons/bi";
+
+const audioList = [
+  {
+    src: "/storm.m4a",
+    title: "Sound",
+    icon: WiThunderstorm,
+  },
+  {
+    src: "/storm.m4a",
+    title: "Sound",
+    icon: WiRain,
+  },
+  {
+    src: "/storm.m4a",
+    title: "Sound",
+    icon: BiWater,
+  },
+];
 
 export default function Home({}: {}) {
   return (
     <>
-      <div className="hero">
-        <h1 className="hero__prompt text-5xl font-bold py-10 md:text-6xl md:py-20">
-          Sound relaxation
-        </h1>
+    <GlobalHero />
+    <div className="container mx-auto px-4 md:px-0">
+      <div className="flex flex-wrap p-2">
+        <div className="w-full">
+          {audioList.map((audio, key) => (
+            <AudioPlayer
+              srcMpeg={audio.src}
+              title={audio.title}
+              volume={0.2}
+              Icon={audio.icon}
+            />
+          ))}
+        </div>
       </div>
-      <div className="flex flex-wrap -mx-2">
-        <AudioPlayer
-          srcMpeg="/storm.m4a"
-          title="Sound 1"
-          volume={0.2}
-          Icon={WiThunderstorm}
-        />
-        <AudioPlayer
-          srcMpeg="/storm.m4a"
-          title="Sound 1"
-          volume={0.2}
-          Icon={WiRain}
-        />
-        <AudioPlayer
-          srcMpeg="/storm.m4a"
-          title="Sound 1"
-          volume={0.2}
-          Icon={BiWater}
-        />
-        <AudioPlayer
-          srcMpeg="/storm.m4a"
-          title="Sound 1"
-          volume={0.2}
-          Icon={FaLeaf}
-        />
-      </div>
+    </div>
     </>
   );
 }

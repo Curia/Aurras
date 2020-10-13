@@ -6,14 +6,18 @@ module.exports = {
   purge: [],
   theme: {
     fontFamily: {
-      'sans': ['Arimo', 'sans-serif'],
+      'sans': ['Nunito Sans', 'sans-serif'],
+      'serif': ['Playfair Display', 'serif']
     },
-    colors: {
-      black: '#000',
-      white: '#fff',
-      grey: '#d5d3cd',
-      heath: '#fffbf4',
-      spring: '#f1ece5',
+    extend: {
+      colors: {
+        grey: '#d5d3cd',
+        heath: '#fffbf4',
+        spring: '#f1ece5',
+      },
+      zIndex: {
+        '-1': '-1'
+      }
     }
   },
   variants: {},

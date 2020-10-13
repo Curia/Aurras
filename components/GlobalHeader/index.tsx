@@ -1,17 +1,23 @@
 // Imports
 import React from "react";
-import Link from "next/link";
-
-// Icons
-import { VscGithubInverted } from "react-icons/vsc";
 
 const GlobalHeader: React.FC<{}> = () => {
   return (
-    <header className="flex justify-between items-center py-4 mb-4 md:py-8 md:mb-8">
-      <span className="font-sans font-bold text-xl tracking-wide md:text-4xl">Aurras</span>
-      <a href="https://github.com/Curia/aurras">
-        <VscGithubInverted className="text-xl md:text-4xl" />
-      </a>
+    <header className="fixed w-full z-10">
+      <div className="container mx-auto px-4 md:px-0">
+      <div className="flex w-full justify-between items-center py-2">
+        <span className="text-white font-sans font-semibold text-xl md:text-2xl">
+          Aurras
+        </span>
+        <div className="">
+          <ul className="text-white text-sm font-semibold">
+            <li className="p-2 hover:text-gray-400">
+              <a href="https://github.com/Curia/aurras">Github</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </div>
     </header>
   );
 };
