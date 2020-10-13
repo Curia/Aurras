@@ -1,32 +1,24 @@
 // Imports
 import React, { useState, useEffect } from "react";
 
-// Icons
-import {
-  BsFillPlayFill,
-  BsPauseFill,
-  BsFillVolumeMuteFill,
-  BsFillVolumeUpFill,
-} from "react-icons/bs";
-import { IconType } from "react-icons/lib";
-
 interface AudioPlayerProps {
-  title: string;
+  caption: string;
   srcMpeg?: string;
   srcOgg?: string;
   srcWav?: string;
   loop?: boolean;
   volume?: number;
   muted?: boolean;
-  Icon: IconType;
+  background?: string;
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({
+  caption,
   srcMpeg,
   srcOgg,
   srcWav,
   volume,
-  Icon,
+  background,
 }) => {
   const [playState, setPlayState] = useState(true);
   const audioEl = React.createRef<HTMLAudioElement>();
@@ -54,34 +46,35 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   }, []);
 
   return (
-    <div className="w-1/2 md:w-1/3 lg:w-1/4 flex flex-wrap justify-center px-2">
-      <div className={`rounded ${playState ? null : "bg-spring"}`}>
-        <audio loop={true} ref={audioEl} className="w-full hidden">
-          {srcMpeg ? <source src={srcMpeg} type="audio/mpeg" /> : null}
-          {srcOgg ? <source src={srcOgg} type="audio/ogg" /> : null}
-          {srcWav ? <source src={srcWav} type="audio/wav" /> : null}
-          <p>
-            Your browser does not support the <code>audio</code> element.
-          </p>
-        </audio>
-        <button
-          className="w-full p-3 flex justify-center focus:outline-none"
-          onClick={(e) => handlePlay(e)}
-        >
-          <Icon
-            className={`text-6xl ${playState ? "text-grey" : "text-black"}`}
-          />
-        </button>
-        <div className={`w-full p-3 ${playState ? 'cursor-not-allowed' : null}`}>
-          <input
-            disabled={playState}
-            type="range"
-            min="0"
-            max="100"
-            ref={volumeEl}
-            onChange={(e) => handleVolume(e)}
-          />
+    <div>
+      <audio loop={true} ref={audioEl} className="w-full hidden">
+        {srcMpeg ? <source src={srcMpeg} type="audio/mpeg" /> : null}
+        {srcOgg ? <source src={srcOgg} type="audio/ogg" /> : null}
+        {srcWav ? <source src={srcWav} type="audio/wav" /> : null}
+        <p>
+          Your browser does not support the <code>audio</code> element.
+        </p>
+      </audio>
+      <button
+        className={`relative w-full flex justify-center focus:outline-none ${
+          playState ? "filter-grayscale-80" : null
+        }`}
+        onClick={(e) => handlePlay(e)}
+      >
+        <img src={background} />
+        <div className="absolute bottom-0 left-0 p-2 w-full text-left bg-black bg-opacity-25">
+          <span className="text-white">{caption}</span>
         </div>
+      </button>
+      <div className={`w-full p-3 ${playState ? "cursor-not-allowed" : null}`}>
+        <input
+          disabled={playState}
+          type="range"
+          min="0"
+          max="100"
+          ref={volumeEl}
+          onChange={(e) => handleVolume(e)}
+        />
       </div>
     </div>
   );

@@ -1,11 +1,39 @@
 /* purgecss start ignore */
-@tailwind  base;
-@tailwind  components;
+@tailwind base;
+@tailwind components;
 /* purgecss end ignore */
-@tailwind  utilities;
+@tailwind utilities;
+
+@layer utilities {
+  @responsive {
+    @variants hover, focus {
+      .filter-none {
+        filter: none;
+      }
+      .filter-grayscale-50 {
+        filter: grayscale(50%);
+      }
+      .filter-grayscale-60 {
+        filter: grayscale(60%);
+      }
+      .filter-grayscale-70 {
+        filter: grayscale(70%);
+      }
+      .filter-grayscale-80 {
+        filter: grayscale(80%);
+      }
+      .filter-grayscale-90 {
+        filter: grayscale(90%);
+      }
+      .filter-grayscale-100 {
+        filter: grayscale(100%);
+      }
+    }
+  }
+}
 
 body {
-    @apply tracking-wide;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+  @apply tracking-wide;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }

@@ -10,11 +10,6 @@ module.exports = {
       'serif': ['Playfair Display', 'serif']
     },
     extend: {
-      colors: {
-        grey: '#d5d3cd',
-        heath: '#fffbf4',
-        spring: '#f1ece5',
-      },
       zIndex: {
         '-1': '-1'
       }
